@@ -1,13 +1,15 @@
 const { io } = require('../server');
-const { Usuarios }  = require('./classes/usuarios')
-const { crearMensaje } = require('../utils/utils')
+const { Jugadores }  = require('./classes/jugadores')
+const { crearMensaje } = require('../utils/utils');
+const { Deck } = require('./classes/deck');
+const { Partida } = require('./classes/partida')
 
-const usuarios = new Usuarios();
+const jugadores = new Jugadores();
+
 io.on('connection', (client) => {
 
     client.on('entrarChat', (data, callback) => {
-
-        if( !data.nombre || !data.sala){
+        if( !data.nombre || !data.partida){
 
             return callback({
                 error: true,
@@ -15,34 +17,40 @@ io.on('connection', (client) => {
             });
         }
 
-        client.join(data.sala);
+            if( jugadores.getJugadoresPartida(data.partida).length < 4){
+                client.join(data.partida);
 
-        usuarios.agregarPersona( client.id, data.nombre, data.sala);
+                jugadores.agregarJugador( client.id, data.nombre, data.partida);
+                
+                client.broadcast.to(data.partida).emit('listaPersonas', jugadores.getJugadoresPartida(data.partida) );
+                //client.broadcast.to(data.sala).emit('crearMensaje', crearMensaje('Admin',`${data.nombre} se unió`));
+                return callback(null, jugadores.getJugadoresPartida(data.partida));   
+            }
+            else{
+                return callback('La partida está completa');
+            }
         
-        client.broadcast.to(data.sala).emit('listaPersonas', usuarios.getPersonasSala(data.sala) );
-        client.broadcast.to(data.sala).emit('crearMensaje', crearMensaje('Admin',`${data.nombre} se unió`));
-        return callback(usuarios.getPersonasSala(data.sala));
     });
 
-    client.on('crearMensaje', (data, callback) => {
-        let persona = usuarios.getPersona(client.id)
-        let message = crearMensaje(persona.nombre, data.message);
-        client.broadcast.to(persona.sala).emit('crearMensaje', message);
+    client.on('empezarPartida', (data, callback) => {
 
-        return callback(message);
+        const jugadoresPartida = jugadores.getJugadoresPartida(data.partida);
+        const partida = new Partida(jugadoresPartida);
+        partida.comenzarPartida();
+        
+        for( const player of jugadoresPartida){
+            if( player.id === client.id){
+                client.emit('recibirCartas', {cards: player.cartas})
+            } else {
+                client.broadcast.to(player.id).emit('recibirCartas', {cards: player.cartas});
+            }
+        }
+        return callback(data);
     });
 
     client.on('disconnect', () => {
-        let personaBorrada = usuarios.borrarPersona(client.id);
-        client.broadcast.to(personaBorrada.sala).emit('crearMensaje', crearMensaje('Admin',`${personaBorrada.nombre} salió`));
-        client.broadcast.to(personaBorrada.sala).emit('listaPersonas', usuarios.getPersonasSala(personaBorrada.sala));
+        let jugadorBorrado = jugadores.borrarJugador(client.id);
+        client.broadcast.to(jugadorBorrado.partida).emit('listaPersonas', jugadores.getJugadoresPartida(jugadorBorrado.partida));
 
     });
-
-    client.on('mensajePrivado', data => {
-        let persona = usuarios.getPersona(client.id);
-        let message = crearMensaje(persona.nombre, data.message);
-        client.broadcast.to(data.para).emit('mensajePrivado', message);
-    })
-
 });

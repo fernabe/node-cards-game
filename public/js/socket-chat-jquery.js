@@ -2,22 +2,27 @@
 var params = new URLSearchParams(window.location.search);
 
 var nombre = params.get('nombre');
-var sala = params.get('sala');
+var partida = params.get('partida');
 // referencias JQuery
+var buttonStart = $('#buttonStart');
+var playerCards = $('#playerCards');
+var cartaTriunfo = $('#cartaTriunfo');
+var restoCartas = $('#restoCartas');
+
 var divUsuarios = $('#divUsuarios');
 var formSend = $('#formSend');
 var txtMessage = $('#formSend input[name="txtMessage"]');
 var divChatbox = $('#divChatbox');
 var titleSala = $('#titleSala').find('small');
+
 function renderizarUsuarios(personas) {
 
-    titleSala.text(sala);
+    titleSala.text(partida);
 
     var html = '';
     html += '<li>';
-    html += '<a href="javascript:void(0)" class="active"> Chat de <span>' + sala + '</span></a>';
+    html += '<a href="javascript:void(0)" class="active">Jugadores</span></a>';
     html += '</li>';
-
     for (var i = 0; i < personas.length; i++) {
         html += '<li>'
         html += '<a data-id="' + personas[i].id + '" href="javascript:void(0)"><img src="assets/images/users/1.jpg" alt="user-img" class="img-circle"> <span>' + personas[i].nombre + '<small class="text-success">online</small></span></a>';
@@ -67,46 +72,49 @@ function renderMessages(data, yo) {
     divChatbox.append(html);
 }
 
-function scrollBottom() {
 
-    // selectors
-    var newMessage = divChatbox.children('li:last-child');
-
-    // heights
-    var clientHeight = divChatbox.prop('clientHeight');
-    var scrollTop = divChatbox.prop('scrollTop');
-    var scrollHeight = divChatbox.prop('scrollHeight');
-    var newMessageHeight = newMessage.innerHeight();
-    var lastMessageHeight = newMessage.prev().innerHeight() || 0;
-
-    if (clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight) {
-        divChatbox.scrollTop(scrollHeight);
+function renderizarCartas(cards){
+    var html = '';
+    for(var i = 0; i < cards.length; i++){
+        html += '<div class="col-sm">'
+        html += '<p>' + cards[i].numero + '</p>';
+        html += '<p>' + cards[i].palo + '</p>';
+        html += '<p>' + cards[i].valor + '</p>';
+        html += '</div>'
     }
+    playerCards.append(html);
 }
 
+function renderizarTriunfo(triunfo){
+    var html = '';
+    html += '<div class="col-sm">'
+    html += '<p>' + triunfo.numero + '</p>';
+    html += '<p>' + triunfo.palo + '</p>';
+    html += '<p>' + triunfo.valor + '</p>';
+    html += '</div>'
+
+    cartaTriunfo.append(html);
+}
+
+function renderizarRestoCartas(resto){
+    console.log(resto);
+    var html = '';
+    for(var i = 0; i < resto.length; i++){
+        html += '<div class="col-sm">'
+        html += '<p>' + resto[i].numero + '</p>';
+        html += '<p>' + resto[i].palo + '</p>';
+        html += '<p>' + resto[i].valor + '</p>';
+        html += '</div>'
+    }
+    restoCartas.append(html);
+}
 
 // Listeners
 
-
-divUsuarios.on('click', 'a', function () {
-    var id = $(this).data('id');
-    //console.log(id);
-});
-
-formSend.on('submit', function (e) {
-
-    e.preventDefault();
-    var texto = txtMessage.val();
-    if (texto.trim().length === 0) {
-        return;
-    }
-    // Enviar información
-    socket.emit('crearMensaje', {
-        nombre,
-        message: texto
-    }, function (response) {
-        txtMessage.val('').focus();
-        renderMessages(response, true);
-        scrollBottom();
+buttonStart.on('click', function(){
+    console.log('Empezar partida');
+    socket.emit('empezarPartida', {partida}, function(response){
+        console.log(response);
     });
 });
+

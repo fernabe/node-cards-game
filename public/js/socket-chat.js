@@ -2,33 +2,46 @@ var socket = io();
 
 var params = new URLSearchParams(window.location.search);
 
-if (!params.has('nombre') || !params.has('sala')) {
+if (!params.has('nombre') || !params.has('partida')) {
     window.location = 'index.html';
-    throw new Error('El nombre y sala son necesarios');
+    throw new Error('El nombre y partida son necesarios');
 }
 
 var usuario = {
     nombre: params.get('nombre'),
-    sala: params.get('sala')
+    partida: params.get('partida')
 };
-
 
 
 socket.on('connect', function() {
     console.log('Conectado al servidor');
 
-    socket.emit('entrarChat', usuario, function(response) {
-        //console.log('Usuarios conectados', response);
-        renderizarUsuarios(response)
+    socket.emit('entrarChat', usuario, function(err, response) {
+
+        if( err ){
+            //Redireccionar al login
+            console.log(err);
+        }
+        else{
+            console.log(response);
+            renderizarUsuarios(response);
+        }
     });
 
 });
 
+socket.on('recibirCartas', function(response){
+    renderizarCartas(response.cards);
+});
+
+socket.on('recibirRestoCartas', function(response){
+    renderizarTriunfo(response.triunfo);
+    renderizarRestoCartas(response.resto);
+});
+
 // escuchar
 socket.on('disconnect', function() {
-
     console.log('Perdimos conexión con el servidor');
-
 });
 
 

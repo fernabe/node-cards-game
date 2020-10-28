@@ -55,6 +55,9 @@
                                         </div>
                                         <ul class="chatonline style-none" id="divUsuarios">
                                             <!--li class="p-20"></li-->
+                                            <li>
+                                                <a href="javascript:void(0)" class="active"> Jugadores </span></a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -63,43 +66,42 @@
                                 <div class="chat-right-aside">
                                     <div class="chat-main-header">
                                         <div class="p-20 b-b">
-                                            <h3 id="titleSala" class="box-title">Sala de chat <small>Video Juegos</small></h3>
+                                            <!--h3 id="titleSala" class="box-title">Sala de chat <small>Video Juegos</small></h3-->
+                                            <button id="buttonStart" type="button" class="btn btn-primary">Comenzar Partida</button>
                                         </div>
                                     </div>
 
                                     <div class="chat-rbox">
-                                        <ul class="chat-list p-20" id="divChatbox">
-                                            <!--chat Row -->
-                                            <!--li>
-                                                <div class="chat-img"><img src="assets/images/users/1.jpg" alt="user" /></div>
-                                                <div class="chat-content">
-                                                    <h5>James Anderson</h5>
-                                                    <div class="box bg-light-info">Lorem Ipsum is simply dummy text of the printing & type setting industry.</div>
-                                                </div>
-                                                <div class="chat-time">10:56 am</div>
-                                            </li-->
-                                            <!--chat Row -->
-                                            <!--li class="reverse">
-                                                <div class="chat-content">
-                                                    <h5>Steave Doe</h5>
-                                                    <div class="box bg-light-inverse">It’s Great opportunity to work.</div>
-                                                </div>
-                                                <div class="chat-img"><img src="assets/images/users/5.jpg" alt="user" /></div>
-                                                <div class="chat-time">10:57 am</div>
-                                            </li-->
-                                        </ul>
-                                    </div>
-                                    <div class="card-body b-t">
-                                        <form id="formSend">
-                                        <div class="row">
-                                            <div class="col-8">
-                                                <input name="txtMessage" placeholder="Escribe tu mensaje aquí" class="form-control b-0" autofocus autocomplete="off">
+                                        <div id="playerCards" class="row p-20">
+                                            <!--div class="col-sm">
+                                                Carta 1
                                             </div>
-                                            <div class="col-4 text-right">
-                                                <button type="submit" class="btn btn-info btn-circle btn-lg"><i class="fa fa-paper-plane-o"></i> </button>
+                                            <div class="col-sm">
+                                                Carta 2
                                             </div>
+                                            <div class="col-sm">
+                                                Carta 3
+                                            </div>
+                                            <div class="col-sm">
+                                                Carta 4
+                                            </div>
+                                            <div class="col-sm">
+                                                Carta 5
+                                            </div>
+                                            <div class="col-sm">
+                                                Carta 6
+                                            </div-->
                                         </div>
-                                        </form>
+
+                                        <div id="cartaTriunfo" class="row p-20"></div>
+                                        <div id="restoCartas" class="row p-20"></div>
+                                    </div>
+
+                                    <div class="chat-main-header">
+                                        <div class="p-20 b-b">
+                                            <!--h3 id="titleSala" class="box-title">Sala de chat <small>Video Juegos</small></h3-->
+                                            <button id="buttonStart" type="button" class="btn btn-primary">Comenzar Partida</button>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- .chat-right-panel -->
@@ -119,9 +121,9 @@
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="footer">
+            <!--footer class="footer">
                 Super Chat - Fernando Herrera
-            </footer>
+            </footer-->
             <!-- ============================================================== -->
             <!-- End footer -->
             <!-- ============================================================== -->
@@ -134,11 +136,7 @@
     <!-- End Wrapper -->
     <!-- ============================================================== -->
 
-
-
-
-
-
+    
     <script src="js/libs/jquery.min.js"></script>
     <script src="socket.io/socket.io.js"></script>
     <script src="js/socket-chat-jquery.js"></script>
