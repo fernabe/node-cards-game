@@ -1,11 +1,12 @@
 const { Deck } = require('./deck')
 
 class Partida{
-    constructor(jugadores){
-       this.jugadores = jugadores;
-       this.marcador_actual = ' 0 - 0';
-       this.marcador_global = ' 0 - 0';
-       this.cartasPartida = []
+    constructor(nombre, jugadores){
+        this.nombre = nombre;
+        this.jugadores = jugadores;
+        this.marcador_actual = ' 0 - 0';
+        this.marcador_global = ' 0 - 0';
+        this.cartasPartida = []
     }
 
     comenzarPartida(){
@@ -18,7 +19,6 @@ class Partida{
 
     repartirCartas(){
         let carta = 0;
-        this.jugadores[0].c
         for(let i = 0; i < 8; i++){
             let player = i % 4;
             let cards = this.cartasPartida.slice(carta, carta+3);

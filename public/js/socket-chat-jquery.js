@@ -8,6 +8,7 @@ var buttonStart = $('#buttonStart');
 var playerCards = $('#playerCards');
 var cartaTriunfo = $('#cartaTriunfo');
 var restoCartas = $('#restoCartas');
+var cardPlayer = $('.cardPlayer');
 
 var divUsuarios = $('#divUsuarios');
 var formSend = $('#formSend');
@@ -76,7 +77,7 @@ function renderMessages(data, yo) {
 function renderizarCartas(cards){
     var html = '';
     for(var i = 0; i < cards.length; i++){
-        html += '<div class="col-sm">'
+        html += '<div data-id="'+i+'" class="col-sm card">'
         html += '<p>' + cards[i].numero + '</p>';
         html += '<p>' + cards[i].palo + '</p>';
         html += '<p>' + cards[i].valor + '</p>';
@@ -118,3 +119,10 @@ buttonStart.on('click', function(){
     });
 });
 
+$(document).on('click', '#playerCards .card', function(){ 
+    console.log($(this).data('id'));
+    var idCarta = $(this).data('id');
+    socket.emit('tirarCarta', idCarta, function(response){
+        console.log(response);
+    });
+}); 

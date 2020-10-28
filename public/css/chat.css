@@ -7,3 +7,8 @@
 textarea {
     width: 100%;
 }
+
+.cardPlayer{
+    border: 1px solid #ffccaa;
+    cursor: pointer;
+}

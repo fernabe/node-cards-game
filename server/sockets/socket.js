@@ -1,10 +1,10 @@
 const { io } = require('../server');
 const { Jugadores }  = require('./classes/jugadores')
-const { crearMensaje } = require('../utils/utils');
-const { Deck } = require('./classes/deck');
-const { Partida } = require('./classes/partida')
+const { Partidas } = require('./classes/partidas');
+const { Partida } = require('./classes/partida');
 
 const jugadores = new Jugadores();
+const partidas = new Partidas();
 
 io.on('connection', (client) => {
 
@@ -35,7 +35,8 @@ io.on('connection', (client) => {
     client.on('empezarPartida', (data, callback) => {
 
         const jugadoresPartida = jugadores.getJugadoresPartida(data.partida);
-        const partida = new Partida(jugadoresPartida);
+        const partida = new Partida(data.partida, jugadoresPartida);
+        partidas.agregarPartida(partida);
         partida.comenzarPartida();
         
         for( const player of jugadoresPartida){
@@ -46,6 +47,15 @@ io.on('connection', (client) => {
             }
         }
         return callback(data);
+    });
+
+    client.on('tirarCarta', (data, callback) => {
+        let id = client.id;
+        let jugador = jugadores.getJugador(id);
+        let partida = partidas.getPartida(jugador.partida)
+        console.log(partida);
+        console.log(jugador.cartas[data]);
+        //console.log(partida.jugadores);
     });
 
     client.on('disconnect', () => {
