@@ -6,7 +6,7 @@ class Partida{
         this.jugadores = jugadores;
         this.marcador_actual = ' 0 - 0';
         this.marcador_global = ' 0 - 0';
-        this.cartasPartida = []
+        this.cartasPartida = [];
     }
 
     comenzarPartida(){

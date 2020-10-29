@@ -17,9 +17,10 @@ io.on('connection', (client) => {
             });
         }
         if( jugadores.getJugadoresPartida(data.partida).length < 4){
+            let numero = jugadores.getJugadoresPartida(data.partida).length;
             client.join(data.partida);
 
-            jugadores.agregarJugador( client.id, data.nombre, data.partida);
+            jugadores.agregarJugador( client.id, data.nombre, data.partida, numero);
             
             client.broadcast.to(data.partida).emit('listaPersonas', jugadores.getJugadoresPartida(data.partida) );
             //client.broadcast.to(data.sala).emit('crearMensaje', crearMensaje('Admin',`${data.nombre} se unió`));
@@ -32,19 +33,27 @@ io.on('connection', (client) => {
 
     client.on('empezarPartida', (data, callback) => {
 
+       
+        let existePartida = partidas.getPartida(data.partida);
+
+        if( existePartida !== undefined ){
+            return callback('La partida ya está iniciada');
+        }
+
         const jugadoresPartida = jugadores.getJugadoresPartida(data.partida);
         const partida = new Partida(data.partida, jugadoresPartida);
         partidas.agregarPartida(partida);
         partida.comenzarPartida();
-        
-        for( const player of jugadoresPartida){
+
+        for( const [i,player] of jugadoresPartida.entries()){
+            player.numero =  i;
             if( player.id === client.id){
                 client.emit('recibirCartas', {cards: player.cartas})
             } else {
                 client.broadcast.to(player.id).emit('recibirCartas', {cards: player.cartas});
             }
         }
-        return callback(data);
+        return callback(jugadoresPartida);
     });
 
     client.on('tirarCarta', (data, callback) => {

@@ -9,7 +9,9 @@ class Partidas{
     }
 
     getPartida( id ){
+        //console.log('id', id)
         let partida = this.partidas.filter( partida => partida.nombre === id)[0];
+        //console.log(partida)
         return partida;
     }
 
