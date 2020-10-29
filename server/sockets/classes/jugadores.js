@@ -5,7 +5,7 @@ class Jugadores {
         this.jugadores = []
     }
 
-    agregarJugador(id, nombre, partida){
+    agregarJugador(id, nombre, partida, numero){
         let jugador = new Jugador(id, nombre, partida)
         this.jugadores.push(jugador);
         return this.jugadores;

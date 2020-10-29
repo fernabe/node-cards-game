@@ -1,10 +1,10 @@
 class Jugador{
-    constructor(id, nombre, partida, numero){
+    constructor(id, nombre, partida){
         this.id = id;
         this.nombre = nombre;
         this.partida = partida;
         this.cartas = [];
-        this.numero = numero;
+        this.numero = 0;
     }
 }
 

@@ -45,14 +45,15 @@ io.on('connection', (client) => {
         partidas.agregarPartida(partida);
         partida.comenzarPartida();
 
-        for( const [i,player] of jugadoresPartida.entries()){
-            player.numero =  i;
+        for( const [i, player] of jugadoresPartida.entries()){
+            player.numero = i;
             if( player.id === client.id){
                 client.emit('recibirCartas', {cards: player.cartas})
             } else {
                 client.broadcast.to(player.id).emit('recibirCartas', {cards: player.cartas});
             }
         }
+        
         return callback(jugadoresPartida);
     });
 
