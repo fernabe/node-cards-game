@@ -12,3 +12,19 @@ textarea {
     border: 1px solid #ffccaa;
     cursor: pointer;
 }
+
+
+.cartaTirada {
+    width: 20%;
+    height: 70%;
+    margin: 0 auto;
+    margin-top: 15px;
+    background-color: burlywood;
+}
+.cartaPropia{
+    width: 85%;
+    height: 70%;
+    margin: 0 auto;
+    margin-top: 15px;
+    background-color: burlywood;
+}

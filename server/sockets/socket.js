@@ -16,20 +16,18 @@ io.on('connection', (client) => {
                 message: ' El nombre es necesario'
             });
         }
+        if( jugadores.getJugadoresPartida(data.partida).length < 4){
+            client.join(data.partida);
 
-            if( jugadores.getJugadoresPartida(data.partida).length < 4){
-                client.join(data.partida);
-
-                jugadores.agregarJugador( client.id, data.nombre, data.partida);
-                
-                client.broadcast.to(data.partida).emit('listaPersonas', jugadores.getJugadoresPartida(data.partida) );
-                //client.broadcast.to(data.sala).emit('crearMensaje', crearMensaje('Admin',`${data.nombre} se unió`));
-                return callback(null, jugadores.getJugadoresPartida(data.partida));   
-            }
-            else{
-                return callback('La partida está completa');
-            }
-        
+            jugadores.agregarJugador( client.id, data.nombre, data.partida);
+            
+            client.broadcast.to(data.partida).emit('listaPersonas', jugadores.getJugadoresPartida(data.partida) );
+            //client.broadcast.to(data.sala).emit('crearMensaje', crearMensaje('Admin',`${data.nombre} se unió`));
+            return callback(null, jugadores.getJugadoresPartida(data.partida));   
+        }
+        else{
+            return callback('La partida está completa');
+        }  
     });
 
     client.on('empezarPartida', (data, callback) => {
@@ -52,10 +50,7 @@ io.on('connection', (client) => {
     client.on('tirarCarta', (data, callback) => {
         let id = client.id;
         let jugador = jugadores.getJugador(id);
-        let partida = partidas.getPartida(jugador.partida)
-        console.log(partida);
-        console.log(jugador.cartas[data]);
-        //console.log(partida.jugadores);
+        let partida = partidas.getPartida(jugador.partida);
     });
 
     client.on('disconnect', () => {
@@ -63,4 +58,5 @@ io.on('connection', (client) => {
         client.broadcast.to(jugadorBorrado.partida).emit('listaPersonas', jugadores.getJugadoresPartida(jugadorBorrado.partida));
 
     });
+
 });

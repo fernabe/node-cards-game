@@ -20,123 +20,102 @@
     <link href="css/colors/default-dark.css" id="theme" rel="stylesheet">
 </head>
 
-<body class="fix-header single-column card-no-border fix-sidebar">
+<body style="background-color: seashell; height: 100vh;">
+    <div style="height: 20vh;" class="container text-center">
+        Barra de información
+        <button id="buttonStart" type="button" class="btn btn-primary">Comenzar Partida</button>
+    </div>
 
-    <!-- ============================================================== -->
-    <!-- Main wrapper -->
-    <!-- ============================================================== -->
-    <div id="main-wrapper">
-
-        <!-- ============================================================== -->
-        <!-- Page wrapper  -->
-        <!-- ============================================================== -->
-        <div class="page-wrapper">
-
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
-            <div class="container-fluid">
-
-
-                <!-- ============================================================== -->
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
-                <div class="row animated fadeIn">
-                    <div class="col-12">
-                        <div class="card m-b-0">
-                            <!-- .chat-row -->
-                            <div class="chat-main-box">
-                                <!-- .chat-left-panel -->
-                                <div class="chat-left-aside">
-                                    <div class="open-panel"><i class="ti-angle-right"></i></div>
-                                    <div class="chat-left-inner">
-                                        <div class="form-material">
-                                            <input class="form-control p-20" type="text" placeholder="Buscar Contacto">
-                                        </div>
-                                        <ul class="chatonline style-none" id="divUsuarios">
-                                            <!--li class="p-20"></li-->
-                                            <li>
-                                                <a href="javascript:void(0)" class="active"> Jugadores </span></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- .chat-left-panel -->
-                                <!-- .chat-right-panel -->
-                                <div class="chat-right-aside">
-                                    <div class="chat-main-header">
-                                        <div class="p-20 b-b">
-                                            <!--h3 id="titleSala" class="box-title">Sala de chat <small>Video Juegos</small></h3-->
-                                            <button id="buttonStart" type="button" class="btn btn-primary">Comenzar Partida</button>
-                                        </div>
-                                    </div>
-
-                                    <div class="chat-rbox">
-                                        <div id="playerCards" class="row p-20">
-                                            <!--div class="col-sm">
-                                                Carta 1
-                                            </div>
-                                            <div class="col-sm">
-                                                Carta 2
-                                            </div>
-                                            <div class="col-sm">
-                                                Carta 3
-                                            </div>
-                                            <div class="col-sm">
-                                                Carta 4
-                                            </div>
-                                            <div class="col-sm">
-                                                Carta 5
-                                            </div>
-                                            <div class="col-sm">
-                                                Carta 6
-                                            </div-->
-                                        </div>
-
-                                        <div id="cartaTriunfo" class="row p-20"></div>
-                                        <div id="restoCartas" class="row p-20"></div>
-                                    </div>
-
-                                    <div class="chat-main-header">
-                                        <div class="p-20 b-b">
-                                            <!--h3 id="titleSala" class="box-title">Sala de chat <small>Video Juegos</small></h3-->
-                                            <button id="buttonStart" type="button" class="btn btn-primary">Comenzar Partida</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- .chat-right-panel -->
-                            </div>
-                            <!-- /.chat-row -->
+    <div class="container">
+        <div style="height: 20vh;" class="row">
+            <div class="col">
+              
+            </div>
+            <div class="col-6 text-center">
+                Player 1
+                <div class="cartaTirada">
+                    Carta
+                </div>
+            </div>
+            <div class="col">
+               
+            </div>
+        </div>
+        <div style="height: 20vh;" class="row">
+            <div class="col text-center">
+                Player 2
+                <div class="cartaTirada" style="width: 45%;">
+                    Carta
+                </div>
+            </div>
+            <div class="col-6">
+            </div>
+            <div class="col text-center">
+               Player 3
+               <div class="cartaTirada" style="width: 45%;">
+                Carta
+            </div>
+            </div>
+        </div>
+        <div style="height: 20vh;" class="row">   
+            <div class="col">
+                
+            </div>
+            <div class="col-6 text-center">
+                <div class="cartaTirada">
+                    Carta
+                </div>
+            </div>
+            <div class="col">
+               
+            </div>
+        </div>       
+        <div style="height: 20vh;" class="row">
+            <div class="col">
+               
+            </div>
+            <div class="col-10 text-center">
+                Mis cartas
+                <div id="misCartas" class="row" style="height: 100%;">
+                    <!--div class="col">
+                        <div class="cartaPropia">
+                            Carta
                         </div>
                     </div>
+                    <div class="col">
+                        <div class="cartaPropia">
+                            Carta
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="cartaPropia">
+                            Carta
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="cartaPropia">
+                            Carta
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="cartaPropia">
+                            Carta
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="cartaPropia">
+                            Carta
+                        </div>
+                    </div-->
                 </div>
-                <!-- ============================================================== -->
-                <!-- End PAge Content -->
-                <!-- ============================================================== -->
-
             </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
-            <!--footer class="footer">
-                Super Chat - Fernando Herrera
-            </footer-->
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
+            <div class="col">
+               
+            </div>
         </div>
-        <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
-    </div>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
-
     
+    </div>
+
     <script src="js/libs/jquery.min.js"></script>
     <script src="socket.io/socket.io.js"></script>
     <script src="js/socket-chat-jquery.js"></script>

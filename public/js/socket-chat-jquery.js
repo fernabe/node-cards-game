@@ -5,7 +5,7 @@ var nombre = params.get('nombre');
 var partida = params.get('partida');
 // referencias JQuery
 var buttonStart = $('#buttonStart');
-var playerCards = $('#playerCards');
+var misCartas = $('#misCartas');
 var cartaTriunfo = $('#cartaTriunfo');
 var restoCartas = $('#restoCartas');
 var cardPlayer = $('.cardPlayer');
@@ -75,6 +75,19 @@ function renderMessages(data, yo) {
 
 
 function renderizarCartas(cards){
+    console.log(cards)
+
+    var html = '';
+    for(var i = 0; i < cards.length; i++){
+        html += '<div class="col">';
+        html += '<div data-id="'+i+'" class="cartaPropia">';
+        html += '<p>' + cards[i].numero + '</p>';
+        html += '<p>' + cards[i].palo + '</p>';
+        html += '<p>' + cards[i].valor + '</p>';
+        html += '</div>';
+        html += '</div>';
+    }
+    /*
     var html = '';
     for(var i = 0; i < cards.length; i++){
         html += '<div data-id="'+i+'" class="col-sm card">'
@@ -83,7 +96,8 @@ function renderizarCartas(cards){
         html += '<p>' + cards[i].valor + '</p>';
         html += '</div>'
     }
-    playerCards.append(html);
+    */
+    misCartas.append(html);
 }
 
 function renderizarTriunfo(triunfo){
